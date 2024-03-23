@@ -17,12 +17,12 @@ def caching_fibonacci() -> Callable[[int],int]:             #function for lock c
                 return 0                                    
             if number_for_fibo < 2:                         #if enter 0 or 1
                 cache[number_for_fibo] = number_for_fibo    #add to cache 0 or 1
-            else:                                           #else calculare value and add to cache
+            else:                                           #else calculate value and add to cache
                 cache[number_for_fibo] = fibonacci(number_for_fibo-1) + fibonacci(number_for_fibo-2)
         return cache.get(number_for_fibo)                   #return value from cache
     return fibonacci                                        #return inner function to provide locking
 
 def main():                                                 #define main function   
-    fibo = caching_fibonacci()                              #define fibo to use locking functionality                       
+    fibo = caching_fibonacci()                              #set fibo to use locking functionality                       
 
 main()                                                      #run code
