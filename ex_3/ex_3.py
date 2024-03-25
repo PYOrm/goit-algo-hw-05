@@ -28,7 +28,7 @@ def load_logs(file_path: str) -> list:                                          
     path = path.absolute()                                                      #recive absolut file Path
     try:                                                                        #try work with file
         with open(path,"r",encoding="utf-8") as log_file:                       #open file
-            logs = [line.replace("\n","") for line in log_file]                 #load records to list and remove "new line" sign. 
+            logs = [parse_log_line(line.replace("\n","")) for line in log_file]                 #load records to list and remove "new line" sign. 
     except FileNotFoundError:                                                   #catch exeption
         print("File not found")                                                 #mesage to user
     return logs                                                                 #return list records
@@ -41,10 +41,10 @@ def parse_log_line(line: str) -> dict:                                          
         print("Can't split log record")                                         #mesage to user
 
 def filter_logs_by_level(logs: list, level: str) -> list:                       #define function for filtering log records
-    return list(filter(lambda x:parse_log_line(x).get("level")==level,logs))    #return list of filtered logs
+    return [f'{rec["date"]} {rec["level"]} {rec["msg"]}' for rec in filter(lambda x:x.get("level")==level,logs)]                    #return list of filtered logs
 
 def count_logs_by_level(logs: list) -> dict:                                    #define function for statistic
-    levels = [parse_log_line(el).get("level") for el in logs]                   #generate list of level records
+    levels = [el.get("level") for el in logs]                                   #generate list of level records
     return Counter(levels)                                                      #return dictionary with statistic
 
 def print_statistic(statistics:dict):                                           #define function for print statistic
