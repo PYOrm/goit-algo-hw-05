@@ -43,8 +43,10 @@ def show_phone(data:list) ->str:                        #define function for sho
     return phone_book[name]                             #try return phone by given name
 
 def show_all():                                         #define function for show all phone book
+    res = ""
     for name, phone in phone_book.items():              #each record display
-        print(f"{name:<30}{phone:>15}")                 #with format 
+        res += f"{name:<30}{phone:>15}\n"               #with format 
+    return res.removesuffix("\n")
 
 @input_error                                            #use decorator
 def parse_input(user_input:str) -> list:                #define function to parse command
@@ -69,7 +71,7 @@ def main():                                             #define main function
             case ("phone"):                             #show phone by name
                 print(show_phone(data))
             case ("all"):                               #show all phone book
-                show_all()
+                print(show_all())
             case (_):                                   #unknown command
                 print("Invalid command")
 
