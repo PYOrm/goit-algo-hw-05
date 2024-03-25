@@ -15,7 +15,7 @@ from collections.abc import Callable                                        #imp
 import re                                                                   #import regular expressions
  
 def generator_numbers(text: str):                                           #define Generator
-    regex_num = "^[0-9]+[\.|,][0-9]{2}$"                                    #pattern for number xxx.xx or xxx,xx
+    regex_num = "\s[0-9]{1,}[\.|,]?[0-9]{0,}\s"                             #pattern for number xxx.xx or xxx,xx
     numbers = [float(w) for w in text.split() if re.match(regex_num,w)]     #split text by words and convert to float elements, wich mach regexp
     for num in numbers:                                                     #for each number 
         yield num                                                           #return number
