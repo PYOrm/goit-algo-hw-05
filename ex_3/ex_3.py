@@ -41,7 +41,7 @@ def parse_log_line(line: str) -> dict:                                          
         print("Can't split log record")                                         #mesage to user
 
 def filter_logs_by_level(logs: list, level: str) -> list:                       #define function for filtering log records
-    return [f'{rec["date"]} {rec["level"]} {rec["msg"]}' for rec in filter(lambda x:x.get("level")==level,logs)]                    #return list of filtered logs
+    return filter(lambda x:x.get("level")==level,logs)                          #return list of filtered logs
 
 def count_logs_by_level(logs: list) -> dict:                                    #define function for statistic
     levels = [el.get("level") for el in logs]                                   #generate list of level records
@@ -55,7 +55,7 @@ def print_statistic(statistics:dict):                                           
 
 def print_records(records:list):                                                #define function for print records from list
     for el in records:                                                          #print each record
-        print(el)
+        print(f'{el["date"]} {el["level"]} {el["msg"]}')
 
 def main():                                                                     #define main logic
     if len(sys.argv)>=2:                                                        #if script run with 1 additional parameter
